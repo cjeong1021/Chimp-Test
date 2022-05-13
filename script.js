@@ -11,9 +11,20 @@ grid.forEach((box) => {
     })
 })
 
+let gridPlacement = generateRandom();
+placeNumbers();
+
+function placeNumbers() {   // Place numbers randomly on grid
+    for (let i = 0; i < gridPlacement.length; i++) {
+        let numberedBox = document.getElementById(`${gridPlacement[i]}`);
+        numberedBox.innerText = `${i + 1}`;
+    }
+}
+
+
 function generateRandom() { // Generate random array to place numbers on grid
     let randomArray = [];
-    for (let i = 0; i < Math.floor(gridArray.length/3); i++) {
+    for (let i = 0; i < Math.floor(gridArray.length/4); i++) {
         let randomNumber = Math.floor(Math.random() * gridArray.length);
         
         while (randomArray.includes(randomNumber) === true) {

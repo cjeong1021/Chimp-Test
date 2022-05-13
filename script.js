@@ -1,26 +1,35 @@
-let grid = document.querySelectorAll('.box'); // Grab grid elements
-let gridArray = [   // Grid representing gamestate
+// Grab grid elements
+let grid = document.querySelectorAll('.box'); 
+
+// Grid representing gamestate
+let gridArray = [   
     0,1,2,
     3,4,5,
     6,7,8
 ];
+
+// Score Tracking variable
 let score = 0;
 
-// document.body.addEventListener('click', () => {
-//     grid.forEach((box) => {
-//         box.innerText = "";
-//     })
-// })
+document.body.addEventListener('click', () => {
+    grid.forEach((box) => {
+        box.innerText = "";
+    })
+})
 
-let gridPlacement = generateRandom();
+let gridPlacement = generateRandom(); //setup board
 let clicks = 0;
 placeNumbers();
 
 grid.forEach((box) => {
     box.addEventListener('click', checkClick)
+    if (clicks > 0) {
+        box.innerText = '';
+    }
 })
 
-function checkClick(e) { //Checks if box is clicked in correct order. Changes color on correct, alerts on incorrect
+//Checks if box is clicked in correct order. Changes color on correct, alerts on incorrect
+function checkClick(e) { 
     if (e.target.id == gridPlacement[clicks]) {
     e.target.style.backgroundColor = 'rgb(77, 169, 169)';
     } else {
@@ -34,15 +43,16 @@ function checkClick(e) { //Checks if box is clicked in correct order. Changes co
     }
 }
 
-function placeNumbers() {   // Place numbers randomly on grid
+// Place numbers randomly on grid
+function placeNumbers() {   
     for (let i = 0; i < gridPlacement.length; i++) {
         let numberedBox = document.getElementById(`${gridPlacement[i]}`);
         numberedBox.innerText = `${i + 1}`;
     }
 }
 
-
-function generateRandom() { // Generate random array to place numbers on grid
+// Generate random array to place numbers on grid
+function generateRandom() { 
     let randomArray = [];
     for (let i = 0; i < Math.floor(gridArray.length/3); i++) {
         let randomNumber = Math.floor(Math.random() * gridArray.length);

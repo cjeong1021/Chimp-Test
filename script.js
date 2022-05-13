@@ -11,11 +11,6 @@ let gridArray = [
 // Score Tracking variable
 let score = 0;
 
-document.body.addEventListener('click', () => {
-    grid.forEach((box) => {
-        box.innerText = "";
-    })
-})
 
 let gridPlacement = generateRandom(); //setup board
 let clicks = 0;
@@ -23,12 +18,9 @@ placeNumbers();
 
 grid.forEach((box) => {
     box.addEventListener('click', checkClick)
-    if (clicks > 0) {
-        box.innerText = '';
-    }
 })
 
-//Checks if box is clicked in correct order. Changes color on correct, alerts on incorrect
+//Checks if box is clicked in correct order. Changes color on correct, alerts on incorrect. Removes eventListers after click or after game ends.
 function checkClick(e) { 
     if (e.target.id == gridPlacement[clicks]) {
     e.target.style.backgroundColor = 'rgb(77, 169, 169)';
@@ -40,7 +32,13 @@ function checkClick(e) {
     if (clicks === gridPlacement.length) {
         console.log("you win");
         score++;
+        grid.forEach((box) => {
+            box.removeEventListener('click', checkClick)
+        })
     }
+    grid.forEach((box) => {
+        box.innerText = ""
+    })
 }
 
 // Place numbers randomly on grid

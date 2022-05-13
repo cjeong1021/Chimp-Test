@@ -4,12 +4,13 @@ let gridArray = [   // Grid representing gamestate
     3,4,5,
     6,7,8
 ];
+let score = 0;
 
-document.body.addEventListener('click', () => {
-    grid.forEach((box) => {
-        box.innerText = "";
-    })
-})
+// document.body.addEventListener('click', () => {
+//     grid.forEach((box) => {
+//         box.innerText = "";
+//     })
+// })
 
 let gridPlacement = generateRandom();
 let clicks = 0;
@@ -27,6 +28,10 @@ function checkClick(e) { //Checks if box is clicked in correct order. Changes co
     }
     clicks++;
     e.target.removeEventListener('click', checkClick)
+    if (clicks === gridPlacement.length) {
+        console.log("you win");
+        score++;
+    }
 }
 
 function placeNumbers() {   // Place numbers randomly on grid

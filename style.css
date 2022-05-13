@@ -5,8 +5,11 @@
 }
 
 .box {
+    display: flex;justify-content: center;align-items: center;
+    color: aliceblue;
     background-color: darkslategray;
     border-radius: 10px;
     height: 75px;
     width: 75px;
+    font-size: 20px;
 }

@@ -5,7 +5,9 @@
 }
 
 .box {
-    display: flex;justify-content: center;align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: aliceblue;
     background-color: darkslategray;
     border-radius: 10px;

@@ -1,6 +1,6 @@
 // Grab html elements
 let grid = document.querySelectorAll('.box'); 
-let scoreHTML = document.querySelector('#score')
+let scoreHTML = document.querySelector('#score');
 
 // Grid representing gamestate
 let gridArray = [   
@@ -8,6 +8,9 @@ let gridArray = [
     3,4,5,
     6,7,8
 ];
+
+// Difficulty variable (difficulty = numbers generated)
+let difficulty = 2;
 
 // Score Tracking variable
 let score = 0;
@@ -45,6 +48,7 @@ function checkClick(e) {
         grid.forEach((box) => {
             box.removeEventListener('click', checkClick)
         })
+        nextLevel();
     }
 
     
@@ -59,10 +63,24 @@ function placeNumbers() {
     }
 }
 
+// Reset board for next level
+function nextLevel() {
+    clicks = 0;
+    difficulty++;
+    gridPlacement = generateRandom();
+    placeNumbers();
+    grid.forEach((box) => {
+        box.style.backgroundColor = "darkslategray"
+        box.addEventListener('click', checkClick)
+    })
+}
+
 // Reset Game and reset variables
 function gameReset() {
     score = 0;
+    scoreHTML.innerText = score;
     clicks = 0;
+    difficulty = 2;
     gridPlacement = generateRandom();
     placeNumbers();
     grid.forEach((box) => {
@@ -75,7 +93,7 @@ function gameReset() {
 // Generate random array to place numbers on grid
 function generateRandom() { 
     let randomArray = [];
-    for (let i = 0; i < Math.floor(gridArray.length/3); i++) {
+    for (let i = 0; i < difficulty; i++) {
         let randomNumber = Math.floor(Math.random() * gridArray.length);
         
         while (randomArray.includes(randomNumber) === true) {

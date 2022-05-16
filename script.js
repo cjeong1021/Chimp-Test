@@ -1,13 +1,8 @@
-// Grab html elements
-let grid = document.querySelectorAll('.box'); 
-let scoreHTML = document.querySelector('#score');
-let livesHTML = document.querySelector('#lives');
-
 // Grid representing gamestate
 let gridArray = [   
-    0,1,2,
-    3,4,5,
-    6,7,8
+    '00','01','02',
+    '10','11','12',
+    '20','21','22'
 ];
 
 // Difficulty variable (difficulty = numbers generated)
@@ -19,8 +14,24 @@ let score = 0;
 // Player Lives
 let lives = 3;
 
+// Grab div that will contain boxes
+let gridContainer = document.querySelector('.grid');
 
-let gridPlacement = generateRandom(); //setup board
+// Holds template for css grid
+let gridTemplateRow = ['80px', '80px', '80px'];
+let gridTemplateColumn = ['80px', '80px', '80px'];
+
+// Create divs
+expandBoard();
+
+// Grab html elements
+let grid = document.querySelectorAll('.box'); 
+let scoreHTML = document.querySelector('#score');
+let livesHTML = document.querySelector('#lives');
+
+//Setup board
+let gridPlacement = generateRandom(); 
+
 let clicks = 0;
 placeNumbers();
 
@@ -28,7 +39,7 @@ grid.forEach((box) => {
     box.addEventListener('click', checkClick)
 })
 
-//Checks if box is clicked in correct order. Changes color on correct, alerts on incorrect. Removes eventListers after click or after game ends.
+//Checks if box is clicked in correct order. Changes color on correct, alerts on incorrect. Removes eventListers after click or after game ends. Proceeds to next level on correct answer.
 function checkClick(e) { 
     grid.forEach((box) => {
         box.innerText = ""
@@ -43,7 +54,7 @@ function checkClick(e) {
         lives--;
         livesHTML.innerText = lives;
         if (lives < 0) {
-            alert('You Lose')
+            alert(`You Lose. Score: ${score}`)
             gameReset();
         } else {
             alert('Try Again')
@@ -74,10 +85,43 @@ function placeNumbers() {
     }
 }
 
+// Expand board for next level based on difficulty variable
+function expandBoard() {
+    gridContainer.innerHTML = "";
+    console.log(difficulty);
+    if (difficulty % 4 === 0) {
+        for (let i = 0; i < Math.sqrt(gridArray.length) + 1; i++) {
+            for (let j = 0; j < Math.sqrt(gridArray.length) + 1; j++) {
+                let newBox = document.createElement('div');
+                newBox.classList.add("box");
+                newBox.id = `${i}${j}`;
+                gridContainer.appendChild(newBox);
+                console.log('bigger grid');
+            }
+        } 
+    } else {
+        for (let i = 0; i < Math.sqrt(gridArray.length); i++) {
+            for (let j = 0; j < Math.sqrt(gridArray.length); j++) {
+                let newBox = document.createElement('div');
+                newBox.classList.add("box");
+                newBox.id = `${i}${j}`;
+                gridContainer.appendChild(newBox);
+                console.log("same grid");
+    }}
+}
+gridArray = [];
+let boxId = document.querySelectorAll('.box');
+boxId.forEach((box) => {
+    gridArray.push(box.id);
+})
+}
+
 // Reset board for next level
 function nextLevel() {
     clicks = 0;
     difficulty++;
+    expandBoard();
+    grid = document.querySelectorAll('.box');
     gridPlacement = generateRandom();
     placeNumbers();
     grid.forEach((box) => {
@@ -86,6 +130,7 @@ function nextLevel() {
     })
 }
 
+// Reset board after incorrect answer
 function boardReset() {
     clicks = 0;
     gridPlacement = generateRandom();
@@ -117,13 +162,17 @@ function gameReset() {
 function generateRandom() { 
     let randomArray = [];
     for (let i = 0; i < difficulty; i++) {
-        let randomNumber = Math.floor(Math.random() * gridArray.length);
+        let randomNumberRow = Math.floor(Math.random() * Math.sqrt(gridArray.length));
+        for (let j = 0; j < difficulty; j++) {
+            let randomNumberColumn = Math.floor(Math.random() * Math.sqrt(gridArray.length));
         
-        while (randomArray.includes(randomNumber) === true) {
-            randomNumber = Math.floor(Math.random() * gridArray.length);
+        while (randomArray.includes(`${randomNumberRow}${randomNumberColumn}`) === true) {
+            randomNumberRow = Math.floor(Math.random() * Math.sqrt(gridArray.length));
+            randomNumberColumn = Math.floor(Math.random() * Math.sqrt(gridArray.length));
+
         }
-        randomArray.push(randomNumber);
+        randomArray.push(`${randomNumberRow}${randomNumberColumn}`);
     }
     console.log(randomArray);
     return randomArray;
-}
+}}

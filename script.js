@@ -174,6 +174,7 @@ function gameReset() {
         '20','21','22'
     ];
     expandBoard();
+    grid = document.querySelectorAll('.box');
     gridPlacement = generateRandom();
     placeNumbers();
     grid.forEach((box) => {

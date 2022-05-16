@@ -50,7 +50,7 @@ function checkClick(e) {
     } else {
         lives--;
         livesHTML.innerText = lives;
-        if (lives < 0) {
+        if (lives === 0) {
             alert(`You Lose. Score: ${score}`)
             gameReset();
         } else {

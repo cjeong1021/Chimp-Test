@@ -1,6 +1,7 @@
 // Grab html elements
 let grid = document.querySelectorAll('.box'); 
 let scoreHTML = document.querySelector('#score');
+let livesHTML = document.querySelector('#lives');
 
 // Grid representing gamestate
 let gridArray = [   
@@ -14,6 +15,9 @@ let difficulty = 2;
 
 // Score Tracking variable
 let score = 0;
+
+// Player Lives
+let lives = 3;
 
 
 let gridPlacement = generateRandom(); //setup board
@@ -36,8 +40,15 @@ function checkClick(e) {
         e.target.style.backgroundColor = 'rgb(77, 169, 169)';
         clicks++;
     } else {
-        gameReset()
-        alert("you lose")
+        lives--;
+        livesHTML.innerText = lives;
+        if (lives < 0) {
+            alert('You Lose')
+            gameReset();
+        } else {
+            alert('Try Again')
+            boardReset();
+        }
     }
     
 
@@ -75,10 +86,22 @@ function nextLevel() {
     })
 }
 
+function boardReset() {
+    clicks = 0;
+    gridPlacement = generateRandom();
+    placeNumbers();
+    grid.forEach((box) => {
+        box.style.backgroundColor = "darkslategray"
+        box.addEventListener('click', checkClick)
+    })
+}
+
 // Reset Game and reset variables
 function gameReset() {
     score = 0;
     scoreHTML.innerText = score;
+    lives = 3;
+    livesHTML.innerText = lives;
     clicks = 0;
     difficulty = 2;
     gridPlacement = generateRandom();

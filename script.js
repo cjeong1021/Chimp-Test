@@ -17,9 +17,6 @@ let lives = 3;
 // Grab div that will contain boxes
 let gridContainer = document.querySelector('.grid');
 
-// Holds template for css grid
-let gridTemplateRow = ['80px', '80px', '80px'];
-let gridTemplateColumn = ['80px', '80px', '80px'];
 
 // Create divs
 expandBoard();
@@ -87,8 +84,10 @@ function placeNumbers() {
 
 // Expand board for next level based on difficulty variable
 function expandBoard() {
+    // Clear existing grid in HTML
     gridContainer.innerHTML = "";
-    console.log(difficulty);
+
+    // If difficulty is multiple of 4, add one row and column to grid
     if (difficulty % 4 === 0) {
         for (let i = 0; i < Math.sqrt(gridArray.length) + 1; i++) {
             for (let j = 0; j < Math.sqrt(gridArray.length) + 1; j++) {
@@ -99,6 +98,7 @@ function expandBoard() {
                 console.log('bigger grid');
             }
         } 
+        // Else, keep grid the same
     } else {
         for (let i = 0; i < Math.sqrt(gridArray.length); i++) {
             for (let j = 0; j < Math.sqrt(gridArray.length); j++) {
@@ -109,11 +109,30 @@ function expandBoard() {
                 console.log("same grid");
     }}
 }
+
+// Rebuild gridArray with new grid
 gridArray = [];
 let boxId = document.querySelectorAll('.box');
 boxId.forEach((box) => {
     gridArray.push(box.id);
 })
+
+// Holds template for css grid
+let gridTemplate = [];
+gridContainer.style.gridTemplateRows = "";
+gridContainer.style.gridTemplateColumns = "";
+
+// gridTemplate to have the correct grid dimensions
+for (let x = 0; x < Math.sqrt(gridArray.length); x++) {
+    gridTemplate.push('80px');
+}
+console.log(gridTemplate);
+
+// Change css grid to match grid dimensions
+for (let z = 0; z < gridTemplate.length; z++) {
+    gridContainer.style.gridTemplateRows += " 80px";
+    gridContainer.style.gridTemplateColumns += " 80px";
+}
 }
 
 // Reset board for next level
@@ -149,6 +168,12 @@ function gameReset() {
     livesHTML.innerText = lives;
     clicks = 0;
     difficulty = 2;
+    gridArray = [   
+        '00','01','02',
+        '10','11','12',
+        '20','21','22'
+    ];
+    expandBoard();
     gridPlacement = generateRandom();
     placeNumbers();
     grid.forEach((box) => {

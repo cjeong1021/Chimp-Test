@@ -25,6 +25,10 @@ expandBoard();
 let grid = document.querySelectorAll('.box'); 
 let scoreHTML = document.querySelector('#score');
 let livesHTML = document.querySelector('#lives');
+let restartButton = document.querySelector('.restart');
+
+//
+restartButton.addEventListener('click', gameReset);
 
 //Setup board
 let gridPlacement = generateRandom(); 

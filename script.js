@@ -1,3 +1,29 @@
+// Timer logic
+let running = false;
+let timer = 0;
+let lastTime = Date.now();
+let timeOutput = document.querySelector('#timer');
+
+const tick = () => {
+    const now = Date.now();
+    const delta = now - lastTime;
+    lastTime = now;
+
+    if (running) {
+        timer += delta;
+        timeOutput.textContent = (timer / 1000).toFixed(1) + 's';
+      }
+
+    requestAnimationFrame(tick);
+}
+
+
+function startTimer() {
+    running = !running;
+    document.body.removeEventListener('click', startTimer)
+}
+tick();
+
 // Grid representing gamestate
 let gridArray = [   
     '00','01','02',
@@ -8,8 +34,9 @@ let gridArray = [
 // Difficulty variable (difficulty = numbers generated)
 let difficulty = 2;
 
-// Score Tracking variable
+// Score Tracking variables
 let score = 0;
+let highscore = localStorage.getItem('highscore');
 
 // Player Lives
 let lives = 3;
@@ -39,6 +66,7 @@ const openModal = () => {
 
 const closeModal = () => {
     modal.style.display = 'none'
+    running = true;
 }
 
 close.addEventListener('click', closeModal);
@@ -50,9 +78,13 @@ restartButton.addEventListener('click', gameReset);
 //Setup board
 let gridPlacement = generateRandom(); 
 
+// Setup clicks variable for tracking players answer
 let clicks = 0;
+
+// Place numbers randomly on the board
 placeNumbers();
 
+// Add click Listeners to all divs with win logic inside checkClick
 grid.forEach((box) => {
     box.addEventListener('click', checkClick)
 })
@@ -72,8 +104,20 @@ function checkClick(e) {
         lives--;
         livesHTML.innerText = lives;
         if (lives === 0) {
+            running = false;
             let scoreResult = document.querySelector('.final-score');
             scoreResult.innerText = score;
+            if(highscore !== null){
+                if (score > highscore) {
+                    localStorage.setItem("highscore", score);  
+                    console.log('new highscore');
+                }
+            }
+            else{
+                localStorage.setItem("highscore", score);
+            }
+            let highscoreResult = document.querySelector('.high-score');
+            highscoreResult.innerText = highscore;
             openModal();
             gameReset();
         } else {
@@ -227,29 +271,3 @@ function generateRandom() {
     console.log(randomArray);
     return randomArray;
 }}
-
-// Timer logic
-let running = false;
-let timer = 0;
-let lastTime = Date.now();
-let timeOutput = document.querySelector('#timer');
-
-const tick = () => {
-    const now = Date.now();
-    const delta = now - lastTime;
-    lastTime = now;
-
-    if (running) {
-        timer += delta;
-        timeOutput.textContent = (timer / 1000).toFixed(1) + 's';
-      }
-
-    requestAnimationFrame(tick);
-}
-
-
-function startTimer() {
-    running = !running;
-    document.body.removeEventListener('click', startTimer)
-}
-tick();

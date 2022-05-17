@@ -27,7 +27,23 @@ let scoreHTML = document.querySelector('#score');
 let livesHTML = document.querySelector('#lives');
 let restartButton = document.querySelector('.restart');
 
-//
+// Modal Elements
+const modal = document.getElementById('modal');
+const close = document.getElementById('close');
+
+
+// Show/Hide modal functions
+const openModal = () => {
+    modal.style.display = 'block';
+}
+
+const closeModal = () => {
+    modal.style.display = 'none'
+}
+
+close.addEventListener('click', closeModal);
+
+// Restart button resets game board
 restartButton.addEventListener('click', gameReset);
 
 //Setup board
@@ -55,10 +71,9 @@ function checkClick(e) {
         lives--;
         livesHTML.innerText = lives;
         if (lives === 0) {
-            alert(`You Lose. Score: ${score}`)
+            openModal();
             gameReset();
         } else {
-            alert('Try Again')
             boardReset();
         }
     }

@@ -71,6 +71,8 @@ function checkClick(e) {
         lives--;
         livesHTML.innerText = lives;
         if (lives === 0) {
+            let scoreResult = document.querySelector('.final-score');
+            scoreResult.innerText = score;
             openModal();
             gameReset();
         } else {

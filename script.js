@@ -42,6 +42,7 @@ const closeModal = () => {
 }
 
 close.addEventListener('click', closeModal);
+document.body.addEventListener('click', startTimer)
 
 // Restart button resets game board
 restartButton.addEventListener('click', gameReset);
@@ -83,7 +84,7 @@ function checkClick(e) {
 
     if (clicks === gridPlacement.length) {
         console.log("you win");
-        score++;
+        score += Math.max(0, 60 - Math.floor((timer / 1000).toFixed(1))) * 1; //timer based scoring logic
         scoreHTML.innerText = score;
         grid.forEach((box) => {
             box.removeEventListener('click', checkClick)
@@ -159,6 +160,7 @@ for (let z = 0; z < gridTemplate.length; z++) {
 // Reset board for next level
 function nextLevel() {
     clicks = 0;
+    timer = 0;
     difficulty++;
     expandBoard();
     grid = document.querySelectorAll('.box');
@@ -173,6 +175,7 @@ function nextLevel() {
 // Reset board after incorrect answer
 function boardReset() {
     clicks = 0;
+    timer = 0;
     gridPlacement = generateRandom();
     placeNumbers();
     grid.forEach((box) => {
@@ -188,6 +191,7 @@ function gameReset() {
     lives = 3;
     livesHTML.innerText = lives;
     clicks = 0;
+    timer = 0;
     difficulty = 2;
     gridArray = [   
         '00','01','02',
@@ -223,3 +227,29 @@ function generateRandom() {
     console.log(randomArray);
     return randomArray;
 }}
+
+// Timer logic
+let running = false;
+let timer = 0;
+let lastTime = Date.now();
+let timeOutput = document.querySelector('#timer');
+
+const tick = () => {
+    const now = Date.now();
+    const delta = now - lastTime;
+    lastTime = now;
+
+    if (running) {
+        timer += delta;
+        timeOutput.textContent = (timer / 1000).toFixed(1) + 's';
+      }
+
+    requestAnimationFrame(tick);
+}
+
+
+function startTimer() {
+    running = !running;
+    document.body.removeEventListener('click', startTimer)
+}
+tick();

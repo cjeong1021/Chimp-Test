@@ -88,7 +88,7 @@ canvas {
 #modal-textbox {
 	background-color: white;
 	font-family: Arial, Helvetica, sans-serif;
-	height: 350px;
+	height: 400px;
 	width: 550px;
 	border-radius: 2px;
 	margin: 150px auto;
@@ -100,6 +100,7 @@ canvas {
 	text-align: right;
 }
 #modal-textbox > h1 {
+    font-size: 25px;
 	padding-bottom: 15px;
 }
 .modal-buttons {

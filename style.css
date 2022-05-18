@@ -53,10 +53,11 @@ header {
     color: aliceblue;
     background-color: darkslategray;
     border-radius: 10px;
-    height: 75px;
-    width: 75px;
+    height: 70px;
+    width: 70px;
     font-size: 20px;
-    border: solid 2px black;
+    font-family: 'Odibee Sans', cursive;
+    border: solid 2px white;
     z-index: inherit;
 }
 

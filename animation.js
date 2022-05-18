@@ -4,12 +4,12 @@ var c = document.getElementById("c");
 var ctx = c.getContext("2d");
 var cH;
 var cW;
-var bgColor = "#00A682";
+var bgColor = "#6784A1";
 var animations = [];
 var circles = [];
 
 var colorPicker = (function() {
-  var colors = ["#00A682", "#005BA1", "#9E7E47", "#A32E21"];
+  var colors = ["#6784A1", "#7799BA"];
   var index = 0;
   function next() {
     index = index++ < colors.length-1 ? index : 0;

@@ -110,7 +110,6 @@ function checkClick(e) {
             if(highscore !== null){
                 if (score > highscore) {
                     localStorage.setItem("highscore", score);  
-                    console.log('new highscore');
                 }
             }
             else{
@@ -127,7 +126,6 @@ function checkClick(e) {
     
 
     if (clicks === gridPlacement.length) {
-        console.log("you win");
         score += Math.max(0, 60 - Math.floor((timer / 1000).toFixed(1))) * 1; //timer based scoring logic
         scoreHTML.innerText = score;
         grid.forEach((box) => {
@@ -142,7 +140,6 @@ function checkClick(e) {
 // Place numbers randomly on grid
 function placeNumbers() {   
     for (let i = 0; i < gridPlacement.length; i++) {
-        console.log(i);
         let numberedBox = document.getElementById(`${gridPlacement[i]}`);
         numberedBox.innerText = `${i + 1}`;
     }
@@ -161,7 +158,6 @@ function expandBoard() {
                 newBox.classList.add("box");
                 newBox.id = `${i}${j}`;
                 gridContainer.appendChild(newBox);
-                console.log('bigger grid');
             }
         } 
         // Else, keep grid the same
@@ -172,7 +168,6 @@ function expandBoard() {
                 newBox.classList.add("box");
                 newBox.id = `${i}${j}`;
                 gridContainer.appendChild(newBox);
-                console.log("same grid");
     }}
 }
 
@@ -192,7 +187,6 @@ gridContainer.style.gridTemplateColumns = "";
 for (let x = 0; x < Math.sqrt(gridArray.length); x++) {
     gridTemplate.push('80px');
 }
-console.log(gridTemplate);
 
 // Change css grid to match grid dimensions
 for (let z = 0; z < gridTemplate.length; z++) {
@@ -268,6 +262,5 @@ function generateRandom() {
         }
         randomArray.push(`${randomNumberRow}${randomNumberColumn}`);
     }
-    console.log(randomArray);
     return randomArray;
 }}

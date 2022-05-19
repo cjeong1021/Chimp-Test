@@ -41,4 +41,4 @@ The way this issue was solved was to automate the creation of the grid from the 
 Credits to Leo Rodriguez and Gregorio Moreta for all their help for this project.
 
 Full credit for the app animations goes to Alex Zaworski. 
-![URL section](https://codepen.io/alexzaworski/pen/mEZvrG?editors=1010)
+[Animation](https://codepen.io/alexzaworski/pen/mEZvrG?editors=1010)

@@ -21,6 +21,10 @@ Simply clone the repo and the app should be able to run from the index.html in t
 
 Potential users that might use this app are those that want to pass the time or have a friendly competition with friends. The game can be played for as long as a user wants and is quickly restarted. The app keeps track of score so users can have small competition with friends to see who can get the highest score.
 
+- As a user who wants to pass the time, I should be able to spend as much time with the game as I want and it should restart quickly to hold my attention.
+
+- As a user who wants to compete with friends, I should be able to play the game and see the score as I progress, as well as see the highscore at the end of the game.
+
 ### Wireframes
 
 The wireframes for this app were quite simple, since the user interaction is basically related to the game. The most important aspects to wireframe were the play grid, header and other important information (lives, score, etc.) 

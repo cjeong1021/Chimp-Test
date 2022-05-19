@@ -1,4 +1,4 @@
-#### Chimp Test
+# Chimp Test
 
 The Chimp Test is a memory game where the user must memorize a sequence of numbers on a grid and click them in the correct order. As the user progresses, the sequence and the grid will get larger, making it more difficult to memorize the whole sequence. 
 
@@ -40,7 +40,7 @@ The biggest hurdles were getting the eventlisteners to work consistently and to 
 
 The way this issue was solved was to automate the creation of the grid from the very beginning, so that as levels progressed, the function that created the grid and added event listeners could make a bigger grid by changing some variables (difficulty, gridArray variables). 
 
-### Credits
+## Credits
 
 Credits to Leo Rodriguez and Gregorio Moreta for all their help for this project.
 
